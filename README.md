@@ -20,13 +20,13 @@
 
 ## The Problem
 
-When working with raw numpy arrays — sensor data, stock prices, fitness metrics, ML features — developers constantly need rolling window statistics. There is no built-in numpy function for this. Every developer either:
+When working with raw numpy arrays (such as sensor data, stock prices, fitness metrics, or machine learning features), developers constantly need rolling window statistics. There is no built-in numpy function for this. Every developer either:
 
-- 🐢 Writes a **slow Python for-loop** every time
-- 📦 Converts to a **pandas DataFrame** just to call `.rolling()`, adding a **35 MB dependency** for a single operation
-- 🤷 Copies a **hacky `stride_tricks` snippet** from StackOverflow that they don't fully understand
+- Writes a slow Python for-loop every time
+- Converts to a pandas DataFrame just to call `.rolling()`, which adds a 35 MB dependency for a single operation
+- Copies a hacky `stride_tricks` snippet from StackOverflow that is difficult to maintain
 
-**`rollit` solves this.** Clean API. Fast. Zero dependencies beyond numpy.
+**rollit solves this.** Clean interface, fast execution, and zero dependencies beyond numpy.
 
 ---
 
@@ -57,7 +57,7 @@ rollit.max(arr, window=3)    # array([3., 4., 5.])
 
 ## Before & After
 
-### Before (pandas — 35 MB dependency)
+### Before (pandas: 35 MB dependency)
 
 ```python
 import numpy as np
@@ -68,7 +68,7 @@ df = pd.DataFrame(arr)
 rolling_mean = df.rolling(window=30).mean().values.flatten()[29:]
 ```
 
-### Before (manual loop — ~500 ms)
+### Before (manual loop: ~500 ms)
 
 ```python
 import numpy as np
@@ -80,7 +80,7 @@ for i in range(len(arr) - 29):
 rolling_mean = np.array(rolling_mean)
 ```
 
-### After (rollit — ~5 ms, zero extra dependencies)
+### After (rollit: ~5 ms, zero extra dependencies)
 
 ```python
 import numpy as np
@@ -92,7 +92,7 @@ rolling_mean = rollit.mean(arr, window=30)
 
 ---
 
-## API Reference
+## Reference
 
 All functions share a unified signature:
 
@@ -118,10 +118,10 @@ rollit.<function>(arr, window, min_periods=None)
 
 *For `arr = [1.0, 2.0, 3.0, 4.0, 5.0]`*
 
-### Anomaly Detection — `zscore()`
+### Anomaly Detection: `zscore()`
 
-Computes the z-score of the **last value** in each window: `(last - mean) / std`.
-Values above **+2** or below **−2** are statistical outliers.
+Computes the z-score of the last value in each window: `(last - mean) / std`.
+Values above +2 or below -2 are statistical outliers.
 
 ```python
 # Flat signal with one spike
@@ -134,9 +134,9 @@ scores = rollit.zscore(signal, window=5)
 
 > **Note:** Returns `NaN` when the standard deviation of a window is 0 (constant values).
 
-### Normalization — `normalize()`
+### Normalization: `normalize()`
 
-Computes rolling min-max normalization of the **last value** in each window: `(last - min) / (max - min)`.
+Computes rolling min-max normalization of the last value in each window: `(last - min) / (max - min)`.
 Scales each value to `[0, 1]` relative to its local window.
 
 ```python
@@ -147,9 +147,9 @@ rollit.normalize(arr, window=3)
 
 > **Note:** Returns `NaN` when all values in a window are equal (`max == min`).
 
-### Custom Function — `apply()`
+### Custom Function: `apply()`
 
-Escape hatch for any function that can't be vectorized. Runs a Python loop internally, so it's **slower** than the built-in functions.
+Escape hatch for any function that cannot be vectorized. Runs a Python loop internally, so it is slower than the built-in functions.
 
 ```python
 # Rolling median
@@ -165,7 +165,7 @@ rollit.apply(arr, window=3, fn=lambda w: w.max() - w.min())
 
 ## Output Length
 
-`rollit` only returns values for **complete windows** — no NaN padding:
+`rollit` only returns values for complete windows with no NaN padding:
 
 ```
 input length  = L
@@ -174,15 +174,15 @@ output length = L - W + 1
 ```
 
 For an array of length 10 with window 3:
-- Output length = **8**
-- Output index `0` ← `arr[0:3]`
-- Output index `7` ← `arr[7:10]`
+- Output length = 8
+- Output index 0 corresponds to `arr[0:3]`
+- Output index 7 corresponds to `arr[7:10]`
 
 ---
 
 ## Performance
 
-All functions (except `apply`) use `numpy.lib.stride_tricks.as_strided` to create read-only memory views — no data is copied.
+All functions (except `apply`) use `numpy.lib.stride_tricks.as_strided` to create read-only memory views, meaning no data is copied.
 
 | Array Size | Window | Function | Time |
 |---|---|---|---|
@@ -198,8 +198,8 @@ All functions (except `apply`) use `numpy.lib.stride_tricks.as_strided` to creat
 
 - **Input must be a 1D numpy array.** Passing a Python list raises `TypeError`. Passing a 2D array raises `ValueError`.
 - **`std()` uses `ddof=1`** (sample standard deviation), matching the pandas default.
-- **Avoid `from rollit import *`** — `sum`, `min`, and `max` would shadow Python builtins. Use `import rollit` and call `rollit.sum()`, `rollit.min()`, `rollit.max()` instead.
-- **`min_periods` in v1.0** counts non-NaN values per window and masks positions below the threshold with NaN. However, the underlying numpy operations (e.g., `np.mean`) are **not** NaN-aware — a window containing any NaN will naturally produce NaN regardless of `min_periods`. Full NaN-aware support (`nanmean`, etc.) is planned for v2.0.
+- **Avoid `from rollit import *`**: `sum`, `min`, and `max` will shadow Python's built-in functions. Use `import rollit` and call `rollit.sum()`, `rollit.min()`, and `rollit.max()` instead.
+- **`min_periods` in v1.0**: Counts non-NaN values per window and masks positions below the threshold with NaN. Note that the underlying numpy operations (such as `np.mean`) are not NaN-aware; a window containing any NaN will produce NaN regardless of `min_periods`. Full NaN-aware support (`nanmean`, etc.) is planned for v2.0.
 
 ---
 
@@ -213,4 +213,4 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+MIT: see [LICENSE](LICENSE) for details.
