@@ -7,7 +7,7 @@ name = "rollit"
 version = "1.0.0"
 description = "Rolling window statistics for numpy arrays. No pandas needed."
 authors = [{ name = "Ameya", email = "acclaptop47@gmail.com" }]
-license = "MIT"
+license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
@@ -18,6 +18,7 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
