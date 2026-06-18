@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rollit"
-version = "1.0.0"
+version = "1.0.1"
 description = "Rolling window statistics for numpy arrays. No pandas needed."
 authors = [{ name = "Ameya", email = "acclaptop47@gmail.com" }]
 license = { text = "MIT" }

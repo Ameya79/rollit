@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="rollit_logo.png" alt="rollit logo" width="200">
+  <img src="https://raw.githubusercontent.com/Ameya79/rollit/main/rollit_logo.png" alt="rollit logo" width="200">
 </p>
 
 <h1 align="center">rollit</h1>
@@ -15,8 +15,7 @@
 <p align="center">
   <a href="https://github.com/Ameya79/rollit/actions/workflows/ci.yml"><img src="https://github.com/Ameya79/rollit/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/v/rollit" alt="PyPI"></a>
-  <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/dm/rollit" alt="Downloads"></a>
-  <a href="https://github.com/Ameya79/rollit/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Ameya79/rollit" alt="License"></a>
+  <a href="https://github.com/Ameya79/rollit/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
   <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/pyversions/rollit" alt="Python"></a>
 </p>
 
