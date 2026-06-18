@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rollit"
+version = "1.0.0"
+description = "Rolling window statistics for numpy arrays. No pandas needed."
+authors = [{ name = "Ameya", email = "acclaptop47@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20.0"
+]
+keywords = ["numpy", "rolling", "window", "statistics", "time-series", "moving-average", "sliding-window"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/Ameya79/rollit"
+Repository = "https://github.com/Ameya79/rollit"
+"Bug Tracker" = "https://github.com/Ameya79/rollit/issues"
+Changelog = "https://github.com/Ameya79/rollit/blob/main/CHANGELOG.md"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
+
+[tool.setuptools.packages.find]
+include = ["rollit*"]
+exclude = ["tests*"]
