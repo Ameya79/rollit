@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  rollit is a lightweight Python library for calculating fast rolling-window statistics (like moving averages, standard deviations, and sums) on NumPy arrays. Instead of writing slow Python loops or importing a heavy 35 MB library like pandas, it uses memory-efficient NumPy stride tricks to calculate moving windows instantly with zero extra dependencies.
+</p>
+
+<p align="center">
   <a href="https://github.com/Ameya79/rollit/actions/workflows/ci.yml"><img src="https://github.com/Ameya79/rollit/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/v/rollit" alt="PyPI"></a>
   <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/dm/rollit" alt="Downloads"></a>
@@ -20,11 +24,15 @@
 
 ## The Problem
 
-When working with raw numpy arrays (such as sensor data, stock prices, fitness metrics, or machine learning features), developers constantly need rolling window statistics. There is no built-in numpy function for this. Every developer either:
+When working with raw numpy arrays (such as sensor data, stock prices, fitness metrics, or machine learning features), developers constantly need rolling window statistics. Since NumPy has no built-in function for this, developers typically resort to writing slow Python for-loops, converting arrays to pandas DataFrames (adding a 35 MB dependency), or copying complex `stride_tricks` snippets from the web.
 
-- Writes a slow Python for-loop every time
-- Converts to a pandas DataFrame just to call `.rolling()`, which adds a 35 MB dependency for a single operation
-- Copies a hacky `stride_tricks` snippet from StackOverflow that is difficult to maintain
+### Why not just write raw stride tricks?
+
+While NumPy's `as_strided` is powerful, using it directly has significant drawbacks:
+- **Danger of Segfaults**: A small mistake in calculating strides can point to invalid memory, causing segmentation faults and crashing the Python interpreter. `rollit` handles the memory layout safely and locks the returned views as read-only.
+- **No Out-of-the-Box Math**: Stride tricks only group your data into windows. You still have to write the reduction math for functions like standard deviation, z-scores, or normalization. `rollit` provides these pre-optimized.
+- **No Input Validation**: Passing invalid window sizes or bad dimensions raises cryptic errors or causes memory issues. `rollit` validates all array parameters and raises clear Python exceptions.
+- **No Support for Missing Data**: `rollit` has built-in support for `min_periods` to handle and mask incomplete windows or missing data.
 
 **rollit solves this.** Clean interface, fast execution, and zero dependencies beyond numpy.
 
