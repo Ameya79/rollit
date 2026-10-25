@@ -1,0 +1,7 @@
+services:
+  rollit:
+    build: .
+    container_name: rollit
+    volumes:
+      - .:/app
+    command: python demo.py

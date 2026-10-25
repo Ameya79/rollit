@@ -17,6 +17,13 @@
   <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/v/rollit" alt="PyPI"></a>
   <a href="https://github.com/Ameya79/rollit/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
   <a href="https://pypi.org/project/rollit/"><img src="https://img.shields.io/pypi/pyversions/rollit" alt="Python"></a>
+  <a href="https://benchtoplabs.vercel.app/p/rollit"><img src="https://benchtoplabs.vercel.app/api/badge/rollit?style=featured" alt="Featured on Benchtop Labs"></a>
+</p>
+
+<p align="center">
+  <a href="https://benchtoplabs.vercel.app/p/rollit">
+    <img src="https://benchtoplabs.vercel.app/api/badge/rollit?style=card" alt="Benchtop Labs Verified Spec" />
+  </a>
 </p>
 
 ---
@@ -41,6 +48,18 @@ While NumPy's `as_strided` is powerful, using it directly has significant drawba
 
 ```bash
 pip install rollit
+```
+
+### 🐳 Run with Docker
+
+Anyone can run `rollit` without installing Python or NumPy locally:
+
+```bash
+# Run the rolling window demo with Docker Compose
+docker compose up
+
+# Or run an interactive Python session with rollit pre-installed
+docker compose run --rm rollit python -c "import rollit, numpy as np; print(rollit.mean(np.array([10, 20, 30, 40]), 2))"
 ```
 
 ---
